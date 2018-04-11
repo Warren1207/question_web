@@ -1,0 +1,115 @@
+<nz-card>
+    <div class="mb-md" style="text-align:right;">
+        <button nz-button [nzType]="'primary'" (click)="callbackFn()">
+            <i class="anticon anticon-left"></i>
+            <span>返回</span>
+        </button>
+    </div>
+    <nz-table #nzTable [nzBordered]="true" [nzShowFooter]="true" [nzShowTitle]="true" [nzSize]="'large'">
+        <span nz-table-title>
+            <span style="color:#000000;">{{data.summary}}</span>
+        </span>
+        <tbody nz-tbody>
+            <tr>
+                <td width="15%">问题编号</td>
+                <td width="35%">
+                    <span>{{data.billNo}}【
+                        <nz-tag *ngIf="data.statue=='2'">开立</nz-tag>
+                        <nz-tag *ngIf="data.statue=='4'">提交</nz-tag>
+                        <nz-tag *ngIf="data.statue=='8'">已受理</nz-tag>
+                        <nz-tag *ngIf="data.statue=='16'">处理中</nz-tag>
+                        <nz-tag *ngIf="data.statue=='32'">处理完毕</nz-tag>
+                        <nz-tag *ngIf="data.statue=='64'">已结案</nz-tag>】
+                    </span>
+                </td>
+                <td width="15%">填单人员</td>
+                <td>
+                    <span>{{data.inputer}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>反映部门</td>
+                <td>
+                    <span>{{data.department}}</span>
+                </td>
+                <td>反映人员</td>
+                <td>
+                    <span>{{data.reporter}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>参考程序代号</td>
+                <td>
+                    <span>{{data.ckcx}}</span>
+                </td>
+                <td>参考模组</td>
+                <td>
+                    <span>{{data.ckmz}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>问题类型</td>
+                <td>
+                    <nz-tag *ngIf="data.category=='10'">操作问题</nz-tag>
+                    <nz-tag *ngIf="data.category=='20'">流程问题</nz-tag>
+                    <nz-tag *ngIf="data.category=='30'">数据核对问题</nz-tag>
+                    <nz-tag *ngIf="data.category=='40'">系统功能改进</nz-tag>
+                    <nz-tag *ngIf="data.category=='50'">系统异常</nz-tag>
+                    <nz-tag *ngIf="data.category=='60'">新增需求</nz-tag>
+                </td>
+                <td>提交时间</td>
+                <td>
+                    <span>{{data.timeCreated}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>问题描述</td>
+                <td colspan="3">
+                    <span id="ContentPlaceHolder1_fm_Content" class="issuebody">
+                        {{data.summary}}
+                    </span>
+                </td>
+            </tr>
+        </tbody>
+        <span nz-table-footer>
+             <div class="text-right">
+                <button nz-button *ngIf="data.statue=='2'" [nzType]="'primary'" (click)="examine()">
+                    <span>审核通过</span>
+                </button>
+            </div>
+        </span>
+    </nz-table>
+</nz-card>
+<ul nz-menu *ngFor="let option of options">
+    <li nz-menu-item style="background:#EEEEEE"> #{{option.id}}、&nbsp;{{option.userCreated}}发布于{{option.timeCreated}}</li>
+    <li nz-menu-item style="background:#FFFFFF">{{option.content}}</li>
+</ul>
+<nz-card *ngIf="data.statue=='16'">
+    <tinymce [(ngModel)]="data.content" loading="加载中……"></tinymce>
+</nz-card>
+<div *ngIf="data.statue=='16'" class="mb-md" style="text-align:center;">
+    <button nz-button [nzType]="'primary'" (click)="continueFn()">
+        <span>继续提问</span>
+    </button>
+</div>
+<div class="mb-md" *ngIf="data.statue=='32'" style="text-align:center;">
+        <div nz-form-item nz-row style="margin-bottom:0px" >
+            <div nz-form-label nz-col [nzSpan]="12">
+                <label>处理时数</label>
+            </div>
+            <div nz-form-label nz-col [nzSpan]="12" style="text-align:left;">
+                <span>{{workHour}}</span> 
+            </div> 
+        </div>
+        <div nz-form-item nz-row>
+            <div nz-form-label nz-col [nzSpan]="12">
+                <label>申请结案时间</label>
+            </div>
+            <div nz-form-label nz-col [nzSpan]="12" style="text-align:left;">
+                <span>{{timeCreated |_date}}</span>
+            </div> 
+        </div>
+    <button nz-button [nzType]="'primary'" (click)="closedFn()">
+        <span>同意结案</span>
+    </button>
+</div>

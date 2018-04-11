@@ -1,0 +1,66 @@
+<div class="content__title">
+  <h1>
+      账号管理
+  </h1>
+  <div class="mb-sm text-left">
+      <button nz-button [nzType]="'primary'" (click)="addFn()">
+          <span>添加</span>
+      </button>
+  </div>
+</div>
+
+
+<nz-card>
+  <nz-table #nzTable [nzBordered]="true" [nzSize]="'small'" [nzAjaxData]="list" [nzShowSizeChanger]="true" [nzLoading]="loading"
+      [nzTotal]="total" [(nzPageIndex)]="pi" [(nzPageSize)]="ps">
+      <thead nz-thead>
+          <tr>
+              <th nz-th style="background: lavender;font-weight: bold;">
+                  <span>用户名</span>
+              </th>
+              <th nz-th style="background: lavender;font-weight: bold;">
+                  <span>姓名</span>
+              </th>
+              <th nz-th style="background: lavender;font-weight: bold;">
+                  <span>职位</span>
+              </th>
+              <th nz-th style="background: lavender;font-weight: bold;">
+                  <span>手机</span>
+              </th>
+              <th nz-th style="background: lavender;font-weight: bold;">
+                  <span>登录次数</span>
+              </th>
+              <th nz-th style="background: lavender;font-weight: bold;">
+                  <span>状态</span>
+              </th>
+              <th nz-th style="background: lavender;font-weight: bold;">
+                  <span>最后登录时间</span>
+              </th>
+              <th nz-th style="background: lavender;font-weight: bold;">
+                  <span>操作</span>
+              </th>
+          </tr>
+      </thead>
+      <tbody nz-tbody>
+          <tr nz-tbody-tr *ngFor="let data of nzTable.data; let i = index">
+              <td nz-td>{{data.userName}}</td>
+              <td nz-td>{{data.name}}</td>
+              <td nz-td>{{data.position}}</td>
+              <td nz-td>{{data.mobile}}</td>
+              <td nz-td>{{data.loginTimes}}</td>
+              <td nz-td>
+                <nz-tag *ngIf="data.statue=='2'">激活</nz-tag>
+                <nz-tag *ngIf="data.statue=='4'">锁定</nz-tag>
+              </td>
+              <td nz-td>{{data.lastAccess |_date}}</td>
+              <td nz-td>
+                  <a (click)="modifyFn(data.id)">修改</a>
+                  <span nz-table-divider></span>
+                  <a (click)="deleteFn(data.id)">删除</a>
+                  <span nz-table-divider></span>
+                  <a (click)="resetFn(data)">重置密码</a>
+              </td>
+          </tr>
+      </tbody>
+  </nz-table>
+</nz-card>

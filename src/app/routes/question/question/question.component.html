@@ -1,0 +1,78 @@
+<form nz-form [formGroup]="validateForm">
+    <div nz-form-item nz-row>
+        <div nz-form-label nz-col [nzSpan]="3">
+            <label>填单人员</label>
+        </div>
+        <div nz-form-control nz-col [nzSpan]="5">
+            <nz-input formControlName="inputer" name="inputer" [nzPlaceHolder]="'填单人员'" [nzSize]="'large'">
+            </nz-input>
+        </div>
+        <div nz-form-label nz-col [nzSpan]="3">
+            <label>反映部门</label>
+        </div>
+        <div nz-form-control nz-col [nzSpan]="5">
+            <nz-input formControlName="department" name="department" [nzPlaceHolder]="'反映部门'" [nzSize]="'large'">
+            </nz-input>
+        </div>
+        <div nz-form-label nz-col [nzSpan]="3">
+            <label>反应人员</label>
+        </div>
+        <div nz-form-control nz-col [nzSpan]="5">
+            <nz-input formControlName="reporter" name="reporter" [nzPlaceHolder]="'反应人员'" [nzSize]="'large'">
+            </nz-input>
+        </div>
+    </div>
+    <div nz-form-item nz-row>
+        <div nz-form-label nz-col [nzSpan]="3">
+            <label>问题类型</label>
+        </div>
+        <div nz-form-control nz-col [nzSpan]="5">
+            <nz-select formControlName="category" [nzPlaceHolder]="'问题类型'">
+                <nz-option *ngFor="let option of questionType " [nzLabel]="option.label" [nzValue]="option.value" [nzDisabled]="option.disabled">
+                </nz-option>
+            </nz-select>
+        </div>
+        <div nz-form-label nz-col [nzSpan]="3">
+            <label>参考程序代号</label>
+        </div>
+        <div nz-form-control nz-col [nzSpan]="5">
+            <nz-input formControlName="ckcx" name="outerName5" [nzPlaceHolder]="'参考程序代号'" [nzSize]="'large'">
+            </nz-input>
+        </div>
+        <div nz-form-label nz-col [nzSpan]="3">
+            <label>参考模组</label>
+        </div>
+        <div nz-form-control nz-col [nzSpan]="5">
+            <nz-input formControlName="ckmz" name="outerName6" [nzPlaceHolder]="'参考模组'" [nzSize]="'large'">
+            </nz-input>
+        </div>
+    </div>
+    <div nz-form-item nz-row>
+        <div nz-form-label nz-col [nzSpan]="3">
+            <label>摘要</label>
+        </div>
+        <div nz-form-control nz-col [nzSpan]="7">
+            <nz-input formControlName="summary" name="summary" [nzPlaceHolder]="'摘要'" [nzSize]="'large'">
+            </nz-input>
+        </div>
+    </div>
+    <nz-card nzTitle="详细描述">
+        <tinymce formControlName="content" name="content" loading="加载中……"></tinymce>
+    </nz-card>
+    <div nz-form-item nz-row style="margin-left: -24px;">
+        <div nz-form-label nz-col [nzSpan]="2">
+            <label>添加抄送</label>
+        </div>
+        <div nz-form-control nz-col [nzSpan]="10">
+            <nz-input formControlName="ccEmail" name="ccEmail" [nzPlaceHolder]="'添加抄送'" [nzSize]="'large'">
+            </nz-input>
+            <div nz-form-explain *ngIf="getFormControl('ccEmail').dirty&&getFormControl('ccEmail').hasError('email')">请输入正确的邮箱地址!</div>
+        </div>
+    </div>
+</form>
+<button nz-button [nzType]="'primary'" (click)="Preservation()">
+    <span>保存</span>
+</button>
+<button nz-button [nzType]="'default'" (click)="Return()" style="margin-left:10px">
+    <span>返回</span>
+</button>
