@@ -51,7 +51,7 @@ export class UserAddComponent implements OnInit {
    */
   ok() {
     const params:any = this.form.getRawValue();
-    params.name = this.name;
+    params.username = this.userName;
     delete params.checkPassword;
     this.ser.postFn('user/resetPassword',params).subscribe( res => {
       if (res.code === 0) {
